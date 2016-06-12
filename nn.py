@@ -9,8 +9,12 @@ def nonlin(x,deriv=False):
     return 1/(1+np.exp(-x))
     
 def calcBestDecision(trainingData, decisions):
+    if len(trainingData) == 0 or random.randint(0, 9) < 2:
+        return random.choice(range(9))
+
 ## input dataset
 #trainingInputs = np.array([
+    trainingData = np.array(trainingData)
     trainingInputs = trainingData[0:,range(trainingData.shape[1] - 1)]
 #                [0,0,1],
 #                [0,1,1],
@@ -48,7 +52,11 @@ def calcBestDecision(trainingData, decisions):
     unknownInput = np.array(decisions).T
 
     prediction = np.dot(syn0.T, unknownInput)
-    return list(prediction[0]).index(max(prediction[0]))
+    #print "data:"
+    #print trainingData
+    #print "prediction:"
+    #print prediction.reshape((3, 3))
+    return random.choice([k for k, v in enumerate(prediction[0]) if v == max(prediction[0])])
 
 trainingData = np.array([
         [20, 10],
@@ -58,33 +66,40 @@ trainingData = np.array([
         ])
 
 creatures = []
-for i in range(10):
-    creatures.append({"loc": random.randint(0, 8), "data": trainingData})
+for i in range(20):
+    creatures.append({"loc": random.randint(0, 8), "data": [], "popOfLastChoice": 0})
+
+pprint(creatures)
 
 worldI = 0
-while worldI < 10:
+while worldI < 20:
     print worldI
     locCounts = np.array(
             [len([c for c in creatures if c["loc"] == locI])
                 for locI in range(9)]) \
             .reshape((3, 3))
 
-    print locCounts
 
     for creature in creatures:
         decisions = [[c, ] for c in locCounts.flatten()]
-        bestDecision = calcBestDecision(creature["data"], decisions)
+        bestDecision = range(9)[calcBestDecision(creature["data"], decisions)]
+        creature["popOfLastChoice"] = locCounts.flatten()[bestDecision]
+        creature["loc"] = bestDecision
 
-        try:
-            creature["loc"] = range(9)[bestDecision]
-        except:
-            import ipdb
-            ipdb.set_trace()
+        locCounts = np.array(
+                [len([c for c in creatures if c["loc"] == locI])
+                    for locI in range(9)]) \
+                .reshape((3, 3))
+
+    for creature in creatures:
+        reward = -1 * locCounts.flatten()[creature["loc"]]
+        creature["data"].append([creature["popOfLastChoice"], reward])
 
     worldI += 1
-    pass
+    print locCounts
 
 pprint(creatures)
+print locCounts
 
 decisions = [
     [5,],
@@ -92,4 +107,4 @@ decisions = [
     [3,],
     ]
 
-print decisions[calcBestDecision(trainingData, decisions)]
+#print decisions[calcBestDecision(trainingData, decisions)]
