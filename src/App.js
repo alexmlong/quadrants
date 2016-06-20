@@ -25,7 +25,7 @@ const App = React.createClass({
           })});
         }
       };
-      xhttp.open("GET", "http://localhost/", true);
+      xhttp.open("GET", "http://localhost:8888", true);
       xhttp.send();
     }, 2000);
   },
