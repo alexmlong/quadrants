@@ -1,3 +1,4 @@
+import json
 from pprint import pprint
 import random
 import numpy as np
@@ -67,7 +68,7 @@ trainingData = np.array([
 
 creatures = []
 for i in range(20):
-    creatures.append({"loc": random.randint(0, 8), "data": [], "popOfLastChoice": 0})
+    creatures.append({"id": i, "loc": random.randint(0, 8), "data": [], "popOfLastChoice": 0})
 
 pprint(creatures)
 
@@ -95,6 +96,7 @@ while worldI < 20:
         reward = -1 * locCounts.flatten()[creature["loc"]]
         creature["data"].append([creature["popOfLastChoice"], reward])
 
+    json.dump(creatures, open("creatures.json", "w"))
     worldI += 1
     print locCounts
 
