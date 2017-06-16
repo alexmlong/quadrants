@@ -63,7 +63,7 @@ while worldI < 20:
 
 
     for creature in creatures:
-        decisions = [[c, ] for c in locCounts.flatten()]
+        decisions = [[i, c] for i, c in enumerate(locCounts.flatten())]
         bestDecision = range(9)[calcBestDecision(creature["data"], decisions)]
         creature["popOfLastChoice"] = locCounts.flatten()[bestDecision]
         creature["loc"] = bestDecision
@@ -74,12 +74,13 @@ while worldI < 20:
                 .reshape((3, 3))
 
     for creature in creatures:
-        reward = -1 * locCounts.flatten()[creature["loc"]]
-        creature["data"].append([creature["popOfLastChoice"], reward])
+        reward = 1 * creature["popOfLastChoice"]
+        creature["data"].append([creature["loc"], creature["popOfLastChoice"], reward])
 
     json.dump(creatures, open("creatures.json", "w"))
     worldI += 1
     print locCounts
+    pprint(creatures)
 
 pprint(creatures)
 print locCounts
