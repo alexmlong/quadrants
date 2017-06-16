@@ -34,7 +34,7 @@ always bad.
 
 - start a dummy webserver for serving the JSON file outputted by
   the simulation by running `python mytornado.py`.
-  Unfortunately, using something like `Pythom -m
+  Unfortunately, using something like `Python -m
   SimpleHTTPServer` wasn't working because of CORS.
 - start the actual web app with `npm install`, then `npm start`.
 - start the simulation with `python nn.py`. It will run for 20
