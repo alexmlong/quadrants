@@ -7,7 +7,6 @@ var json = require("json!./creatures.json");
 const App = React.createClass({
   getInitialState() {
     return {
-      open: false,
       creatures: [],
     };
   },
@@ -41,10 +40,6 @@ const App = React.createClass({
     }, 500);
   },
 
-  handleMouseDown() {
-    this.setState({open: !this.state.open});
-  },
-
   getJitter() {
     return Math.floor(Math.random() * 50) + 1;
   },
@@ -56,11 +51,6 @@ const App = React.createClass({
     const style = {x: spring(randX), y: spring(randY)};
     return (
         <div>
-          <div>
-            <button onClick={this.handleMouseDown}>
-              Toggle
-            </button>
-          </div>
           {
             this.state.creatures.map(creature => {
 
