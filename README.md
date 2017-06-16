@@ -6,9 +6,11 @@ to pick which area to move to.
 There are 9 grid cells they choose from (so not actually
 quadrants anymore).
 
+![quadrants](https://user-images.githubusercontent.com/794661/27210210-c07657fe-521e-11e7-97c0-550e89bae0be.gif)
+
 # what I learned
 
-The creatures only seemed to be able to learn to favor the top
+The creatures mostly only seemed to be able to learn to favor the top
 left and bottom right cells, depending on what reward function I
 used. I'm thinking because this is because those were the highest
 and lowest location indices.
