@@ -9,7 +9,7 @@ def nonlin(x,deriv=False):
         return x*(1-x)
     return 1/(1+np.exp(-x))
     
-def calcBestDecision(trainingData, decisions):
+def calcBestDecision(trainingData, decisions, creatureId):
     if len(trainingData) == 0 or random.randint(0, 9) < 2:
         return random.choice(range(9))
 
@@ -21,7 +21,7 @@ def calcBestDecision(trainingData, decisions):
 
 # seed random numbers to make calculation
 # deterministic (just a good practice)
-    np.random.seed(1)
+    np.random.seed(creatureId)
 
 # initialize weights randomly with mean 0
     syn0 = 2*np.random.random((trainingInputs.shape[1],1)) - 1
@@ -64,7 +64,7 @@ while worldI < 20:
 
     for creature in creatures:
         decisions = [[i, c] for i, c in enumerate(locCounts.flatten())]
-        bestDecision = range(9)[calcBestDecision(creature["data"], decisions)]
+        bestDecision = range(9)[calcBestDecision(creature["data"], decisions, creature["id"])]
         creature["popOfLastChoice"] = locCounts.flatten()[bestDecision]
         creature["loc"] = bestDecision
 
