@@ -14,17 +14,9 @@ def calcBestDecision(trainingData, decisions):
         return random.choice(range(9))
 
 ## input dataset
-#trainingInputs = np.array([
     trainingData = np.array(trainingData)
     trainingInputs = trainingData[0:,range(trainingData.shape[1] - 1)]
-#                [0,0,1],
-#                [0,1,1],
-#                [1,0,1],
-#                [1,1,1],
-#                ])
-#    
 ## output dataset            
-#trainingOutputs = np.array([[0,0,1,1]]).T
     trainingOutputs = trainingData[0:,[trainingData.shape[1] - 1]]
 
 # seed random numbers to make calculation
@@ -53,18 +45,7 @@ def calcBestDecision(trainingData, decisions):
     unknownInput = np.array(decisions).T
 
     prediction = np.dot(syn0.T, unknownInput)
-    #print "data:"
-    #print trainingData
-    #print "prediction:"
-    #print prediction.reshape((3, 3))
     return random.choice([k for k, v in enumerate(prediction[0]) if v == max(prediction[0])])
-
-trainingData = np.array([
-        [20, 10],
-        [40, 20],
-        [10, 5],
-        [2, 1]
-        ])
 
 creatures = []
 for i in range(20):
