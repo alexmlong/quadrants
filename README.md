@@ -1,7 +1,9 @@
 # quadrants
 
 Experiment with having creatures with neural network brains learn
-to pick which area to move to.
+to pick which area to move to. In the gif below, the reward function
+being used should cause the creatures to favor being in the same
+cell as other creatures.
 
 There are 9 grid cells they choose from (so not actually
 quadrants anymore).
